@@ -1,0 +1,11 @@
+body {
+    background: url(../assets/f1472f334b2df7c0002176ddf26ca638.jpg);
+}
+
+.card-container {
+    width: 50vw;
+    margin: 15vh 29vw 0 21vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 35px;
+}
