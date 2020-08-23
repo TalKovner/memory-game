@@ -1,6 +1,6 @@
 import React from 'react';
 import MemoryCard from './components/MemoryCard';
-import Confetti from 'react-confetti'
+import Confetti from './components/Confetti'
 import './style/App.css';
 import data from './data';
 
