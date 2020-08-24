@@ -3,7 +3,7 @@ import MemoryCard from './components/MemoryCard';
 import Confetti from './components/Confetti'
 import './style/App.css';
 import data from './data';
-import useWindowSize from 'react-use/lib/useWindowSize'
+// import useWindowSize from 'react-use/lib/useWindowSize'
 
 class App extends React.Component {
 	constructor() {
