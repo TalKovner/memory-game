@@ -46,6 +46,12 @@ class App extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+			openFullscreen(document.documentElement);
+		}
+	}
+
 	closeOpenCards() {
 		this.openCards.forEach(card => {
 			setTimeout(card.flipper, 800)
@@ -87,6 +93,18 @@ function shuffle(array) {
 	}
   
 	return array;
+}
+
+function openFullscreen(elem) {
+	if (elem.requestFullscreen) {
+	  elem.requestFullscreen();
+	} else if (elem.mozRequestFullScreen) { /* Firefox */
+	  elem.mozRequestFullScreen();
+	} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+	  elem.webkitRequestFullscreen();
+	} else if (elem.msRequestFullscreen) { /* IE/Edge */
+	  elem.msRequestFullscreen();
+	}
   }
 
 export default App;
