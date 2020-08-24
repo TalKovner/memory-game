@@ -2,4 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    // some code..
+    // console.log('phone')
+    document.write('phone')
+} else {
+    document.write('not phone')
+}
+
+// ReactDOM.render(<App />, document.getElementById('root'));
