@@ -3,6 +3,7 @@ import MemoryCard from './components/MemoryCard';
 import Confetti from './components/Confetti'
 import './style/App.css';
 import data from './data';
+import useWindowSize from 'react-use/lib/useWindowSize'
 
 class App extends React.Component {
 	constructor() {
@@ -60,6 +61,7 @@ class App extends React.Component {
 	}
 
 	render() {
+		// const { width, height } = useWindowSize()
 		const memoryCards = data.map(dataObj => <MemoryCard
 			image={dataObj.img}
 			id={dataObj.id} 
@@ -67,13 +69,12 @@ class App extends React.Component {
 			flipCard={this.flip}
 			key={dataObj.id}
 		/>);
-		toggleFullscreen()
+		// toggleFullscreen(width, height)
 		return (
 			<div className='card-container'>
 				{this.state.throwConfetti ? <Confetti /> : null}
 				{ memoryCards }
-				<button className="fullScreen" onClick={this.handleFullScreen}>full screen</button>
-				
+				{/* <button className="fullScreen" onClick={this.handleFullScreen}>full screen</button> */}
 			</div>
 		)
 	}
@@ -110,8 +111,10 @@ function shuffle(array) {
 // 	}
 //   }
 
-function toggleFullscreen() {
+function toggleFullscreen(width, height) {
 	let elem = document.documentElement;
+	elem.clientWidth = width
+	elem.clientHeight = height
   
 	if (!document.fullscreenElement) {
 	  elem.requestFullscreen().catch(err => {
