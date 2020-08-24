@@ -46,9 +46,10 @@ class App extends React.Component {
 		}
 	}
 
-	componentDidMount() {
-		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-			openFullscreen(document.documentElement);
+	handleFullScreen() {
+		// if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		if (true) {
+			toggleFullscreen()
 		}
 	}
 
@@ -66,11 +67,13 @@ class App extends React.Component {
 			flipCard={this.flip}
 			key={dataObj.id}
 		/>);
-
+		toggleFullscreen()
 		return (
 			<div className='card-container'>
 				{this.state.throwConfetti ? <Confetti /> : null}
 				{ memoryCards }
+				<button className="fullScreen" onClick={this.handleFullScreen}>full screen</button>
+				
 			</div>
 		)
 	}
@@ -95,15 +98,27 @@ function shuffle(array) {
 	return array;
 }
 
-function openFullscreen(elem) {
-	if (elem.requestFullscreen) {
-	  elem.requestFullscreen();
-	} else if (elem.mozRequestFullScreen) { /* Firefox */
-	  elem.mozRequestFullScreen();
-	} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-	  elem.webkitRequestFullscreen();
-	} else if (elem.msRequestFullscreen) { /* IE/Edge */
-	  elem.msRequestFullscreen();
+// function openFullscreen(elem) {
+// 	if (elem.requestFullscreen) {
+// 	  elem.requestFullscreen();
+// 	} else if (elem.mozRequestFullScreen) { /* Firefox */
+// 	  elem.mozRequestFullScreen();
+// 	} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+// 	  elem.webkitRequestFullscreen();
+// 	} else if (elem.msRequestFullscreen) { /* IE/Edge */
+// 	  elem.msRequestFullscreen();
+// 	}
+//   }
+
+function toggleFullscreen() {
+	let elem = document.documentElement;
+  
+	if (!document.fullscreenElement) {
+	  elem.requestFullscreen().catch(err => {
+		console.log(err)
+	  });
+	} else {
+	  document.exitFullscreen();
 	}
   }
 
