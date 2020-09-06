@@ -1,5 +1,22 @@
 body {
     background: url(../assets/f1472f334b2df7c0002176ddf26ca638.jpg);
+    position: relative;
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 550px) {
+    
+    body::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        z-index: -1;
+        background: url(../assets/f1472f334b2df7c0002176ddf26ca638.jpg);
+        transform: rotate(90deg);
+    }
 }
 
 .card-container {
