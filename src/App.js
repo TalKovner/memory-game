@@ -3,7 +3,6 @@ import MemoryCard from './components/MemoryCard';
 import Confetti from './components/Confetti'
 import './style/App.css';
 import data from './data';
-// import useWindowSize from 'react-use/lib/useWindowSize'
 
 class App extends React.Component {
 	constructor() {
@@ -47,13 +46,6 @@ class App extends React.Component {
 		}
 	}
 
-	handleFullScreen() {
-		// if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-		if (true) {
-			toggleFullscreen()
-		}
-	}
-
 	closeOpenCards() {
 		this.openCards.forEach(card => {
 			setTimeout(card.flipper, 800)
@@ -61,7 +53,6 @@ class App extends React.Component {
 	}
 
 	render() {
-		// const { width, height } = useWindowSize()
 		const memoryCards = data.map(dataObj => <MemoryCard
 			image={dataObj.img}
 			id={dataObj.id} 
@@ -69,13 +60,13 @@ class App extends React.Component {
 			flipCard={this.flip}
 			key={dataObj.id}
 		/>);
-		// toggleFullscreen(width, height)
 		return (
-			<div className='card-container'>
+			<>
 				{this.state.throwConfetti ? <Confetti /> : null}
-				{ memoryCards }
-				{/* <button className="fullScreen" onClick={this.handleFullScreen}>full screen</button> */}
-			</div>
+				<div className='card-container'>
+					{ memoryCards }
+				</div>
+			</>
 		)
 	}
 }
@@ -98,31 +89,5 @@ function shuffle(array) {
   
 	return array;
 }
-
-// function openFullscreen(elem) {
-// 	if (elem.requestFullscreen) {
-// 	  elem.requestFullscreen();
-// 	} else if (elem.mozRequestFullScreen) { /* Firefox */
-// 	  elem.mozRequestFullScreen();
-// 	} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-// 	  elem.webkitRequestFullscreen();
-// 	} else if (elem.msRequestFullscreen) { /* IE/Edge */
-// 	  elem.msRequestFullscreen();
-// 	}
-//   }
-
-function toggleFullscreen(width, height) {
-	let elem = document.documentElement;
-	elem.clientWidth = width
-	elem.clientHeight = height
-  
-	if (!document.fullscreenElement) {
-	  elem.requestFullscreen().catch(err => {
-		console.log(err)
-	  });
-	} else {
-	  document.exitFullscreen();
-	}
-  }
 
 export default App;

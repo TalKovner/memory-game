@@ -1,5 +1,13 @@
 body {
+    margin: 0;
     background: url(../assets/f1472f334b2df7c0002176ddf26ca638.jpg);
+}
+
+#root {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .card-container {
@@ -12,8 +20,9 @@ body {
 
 @media only screen and (max-width: 600px) {
     .card-container {
-        margin: 15vh 28vw 0 11vw;
+        margin: 15vh auto;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-gap: 20px;
+        width: 230px;
     }
 }
