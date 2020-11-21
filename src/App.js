@@ -4,6 +4,10 @@ import Confetti from './components/Confetti'
 import './style/App.css';
 import data from './data';
 
+window.screen.orientation.lock('portrait')
+
+let cardsData = shuffle(data);
+
 class App extends React.Component {
 	constructor() {
 		super();
@@ -11,16 +15,25 @@ class App extends React.Component {
 		this.foundedCount = 0
 		this.flip = this.flip.bind(this);
 		this.state = {
-			throwConfetti: false
+			memoryCards: cardsData.map(dataObj => <MemoryCard
+				image={dataObj.img}
+				id={dataObj.id} 
+				brotherId={dataObj.brotherId}
+				flipCard={this.flip}
+				key={dataObj.id}
+			/>),
+			throwConfetti: false,
+			data: shuffle(data),
+			foundedCards: []
 		}
-		shuffle(data);
+		this.restart = this.restart.bind(this)
 	}
 
-	flip(flipper, markAsFound, id, brotherId, isFound) {
+	flip(flipper, restart, markAsFound, id, brotherId, isFound) {
 		if (!isFound) {
 			flipper()
 
-			this.openCards.push({ id, flipper, brotherId, markAsFound, isFound });
+			this.openCards.push({ id, restart, flipper, brotherId, markAsFound, isFound });
 	
 			if (this.openCards.length === 2) {
 				if (this.openCards[0].id === this.openCards[1].brotherId) {
@@ -37,6 +50,9 @@ class App extends React.Component {
 	handleMatchCards() {
 		this.openCards.forEach(card => {
 			card.markAsFound()
+			console.log(card)
+			this.setState((prevState) => ({ foundedCards: [...prevState.foundedCards, card] }));
+			console.log(this.state.foundedCards)
 		});
 
 		this.foundedCount += 2;
@@ -46,6 +62,21 @@ class App extends React.Component {
 		}
 	}
 
+	restart() {
+		this.state.foundedCards.forEach(card => card.restart() || card.flipper())
+		this.openCards.forEach(card => card.restart() || card.flipper())
+		this.openCards = [];
+		this.setState({ foundedCards: [] })
+		cardsData = shuffle(data);
+		this.setState({ memoryCards: cardsData.map(dataObj => <MemoryCard
+			image={dataObj.img}
+			id={dataObj.id} 
+			brotherId={dataObj.brotherId}
+			flipCard={this.flip}
+			key={dataObj.id}
+		/>)});
+	}
+
 	closeOpenCards() {
 		this.openCards.forEach(card => {
 			setTimeout(card.flipper, 800)
@@ -53,19 +84,20 @@ class App extends React.Component {
 	}
 
 	render() {
-		const memoryCards = data.map(dataObj => <MemoryCard
-			image={dataObj.img}
-			id={dataObj.id} 
-			brotherId={dataObj.brotherId}
-			flipCard={this.flip}
-			key={dataObj.id}
-		/>);
+		// const memoryCards = data.map(dataObj => <MemoryCard
+		// 	image={dataObj.img}
+		// 	id={dataObj.id} 
+		// 	brotherId={dataObj.brotherId}
+		// 	flipCard={this.flip}
+		// 	key={dataObj.id}
+		// />);
 		return (
 			<>
-				{this.state.throwConfetti ? <Confetti /> : null}
+				{ this.state.throwConfetti ? <Confetti /> : null }
 				<div className='card-container'>
-					{ memoryCards }
+					{ this.state.memoryCards }
 				</div>
+				<button onClick={() => this.restart()} className="replay-btn"><span class="material-icons">replay</span></button>
 			</>
 		)
 	}

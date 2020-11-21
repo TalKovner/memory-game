@@ -12,6 +12,7 @@ class MemoryCard extends React.Component {
         this.rotation = getRandomInt(-5, 5);
         this.flipper = this.flipper.bind(this);
         this.markAsFound = this.markAsFound.bind(this);
+        this.restart = this.restart.bind(this);
     }
 
 
@@ -27,10 +28,14 @@ class MemoryCard extends React.Component {
         this.setState({ isFound: true })
     }
 
+    restart() {
+        this.setState({ isFound: false })
+    }
+
     render() {
         return (
             <div className="flip-card" style={{transform: `rotate(${this.rotation}deg)`}} >
-                <div id={this.props.id} className="flip-card-inner" onClick={() => this.props.flipCard(this.flipper, this.markAsFound, this.props.id, this.props.brotherId, this.state.isFound)}>
+                <div id={this.props.id} className="flip-card-inner" onClick={() => this.props.flipCard(this.flipper, this.restart, this.markAsFound, this.props.id, this.props.brotherId, this.state.isFound)}>
                     <div className="flip-card-front">
                         <img src={back} alt="Avatar" />
                     </div>
