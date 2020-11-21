@@ -68,13 +68,18 @@ class App extends React.Component {
 		this.openCards = [];
 		this.setState({ foundedCards: [] })
 		cardsData = shuffle(data);
-		this.setState({ memoryCards: cardsData.map(dataObj => <MemoryCard
-			image={dataObj.img}
-			id={dataObj.id} 
-			brotherId={dataObj.brotherId}
-			flipCard={this.flip}
-			key={dataObj.id}
-		/>)});
+		this.setState({
+			memoryCards: cardsData.map(
+				dataObj => <MemoryCard
+					image={dataObj.img}
+					id={dataObj.id} 
+					brotherId={dataObj.brotherId}
+					flipCard={this.flip}
+					key={dataObj.id}
+				/>
+			),
+			throwConfetti: false,
+		});
 	}
 
 	closeOpenCards() {
